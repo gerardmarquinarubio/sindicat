@@ -21,11 +21,17 @@ enum Visibility {
   Public
 }
 
-enum Type {
+enum PostType {
   Text
   Link
   Image
   Poll
+}
+
+enum InteractionType {
+  Comment
+  Reaction
+  Vote
 }
 
 model User {
@@ -41,9 +47,9 @@ model User {
   role       Role       @default(User) // is he a super-admin?
   visibility Visibility @default(Protected) // can other people see his socials?
 
-  orgs     UsersOnOrg[]
-  posts    Post[]
-  comments Comment[]
+  orgs         UsersOnOrg[]
+  posts        Post[]
+  interactions Interaction[]
 }
 
 model Post {
@@ -53,24 +59,24 @@ model Post {
   closesAt  DateTime // When is the post no longer active for interactivity
 
   name       String // Title of the post
-  type       Type
+  type       PostType
   content    String
   visibility Visibility @default(Protected)
 
-  author   User      @relation(references: [id], fields: [authorId])
-  authorId Int
-  org      Org       @relation(references: [id], fields: [orgId])
-  orgId    Int
-  comments Comment[]
+  author      User          @relation(references: [id], fields: [authorId])
+  authorId    Int
+  org         Org           @relation(references: [id], fields: [orgId])
+  orgId       Int
+  interaction Interaction[]
 }
 
-model Comment {
+model Interaction {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  type       InteractionType
   content    String
-  visibility Visibility @default(Public)
 
   post     Post @relation(references: [id], fields: [postId])
   postId   Int
