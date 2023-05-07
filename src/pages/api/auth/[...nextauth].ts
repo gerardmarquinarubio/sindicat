@@ -70,6 +70,9 @@ export default NextAuth({
               where: {
                 email,
               },
+              include: {
+                orgs: true
+              }
             });
           if (!compareSync(password, hashedPassword))
             throw new Error("invalid credentials");

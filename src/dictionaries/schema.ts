@@ -57,7 +57,16 @@ export type Schema = {
       register: string;
     };
   };
+  create: {
+    title: string;
+    subtitle: string;
+    name: string;
+    visibility: string;
+    submit: string;
+  }
   navbar: {
+    myOrg: string;
+    createOrg: string;
     searchPlaceholder: string;
     userButton: string;
     settingsButton: string;

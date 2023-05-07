@@ -1,10 +1,13 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import Org, { RequiredOrgProps } from "~/components/Org";
 import { getDictionary } from "~/dictionaries";
+import { NextPageWithLayout } from "./_app";
+import DefaultLayout from "~/layouts/DefaultLayout";
+import { queryToString } from "~/utils/query";
 
 const MOCK_ORGS: RequiredOrgProps[] = [
   {
@@ -139,24 +142,15 @@ const MOCK_ORGS: RequiredOrgProps[] = [
   },
 ];
 
-export default function Home({
-  locale,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+const Search: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ locale }) => {
   const router = useRouter();
-  const search = Array.isArray(router.query.text)
-    ? router.query.text.join("")
-    : router.query.text ?? "";
+  const search = queryToString(router.query.text);
   const [hideUnverified, setHideUnverified] = useState<boolean>(false);
   const [sortMode, setSortMode] = useState<number>(0);
-  const [searchText, setSearchText] = useState<string>(search);
   return (
-    <main>
-      <Navbar
-        locale={locale.navbar}
-        onSearch={setSearchText}
-        defaultSearch={searchText}
-        defaultFocused
-      />
+    <>
       <div className="grid grid-cols-4 gap-8 py-12 px-6">
         <div className="w-full rounded p-2 bg-slate-900 h-fit">
           <div className="form-control">
@@ -204,7 +198,7 @@ export default function Home({
             </div>
           ) : (
             MOCK_ORGS.filter((org) => {
-              let passes = org.name.includes(searchText);
+              let passes = org.name.includes(search);
               if (hideUnverified && passes) {
                 passes = org.verification > 0;
               }
@@ -213,10 +207,15 @@ export default function Home({
           )}
         </div>
       </div>
-      <Footer />
-    </main>
+    </>
   );
-}
+};
+
+Search.getLayout = (page) => {
+  return <DefaultLayout locale={page.props.locale}>{page}</DefaultLayout>;
+};
+
+export default Search;
 
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
   return {

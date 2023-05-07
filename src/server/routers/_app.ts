@@ -5,31 +5,61 @@ import { isPasswordSecure, validateEmail } from "~/utils/secure";
 import { procedure, router } from "../trpc";
 
 export const appRouter = router({
+  create: procedure
+    .input(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      return ctx.session;
+      /* return await client.org.create({
+        data: {
+          name: input.name,
+          content: input.description,
+          media: "",
+        },
+      }); */
+    }),
   register: procedure
     .input(
       z.object({
         name: z.string().min(1).max(42),
         // Custom validator to ensure email is not only valid but also not re-used
-        email: z.string().email().refine( async (val) => {
-          const email = validateEmail(val);
-          if (email === false) {
-            return false;
-          }
-          const possibleMatch = await client.user.findUnique({
-            where: {
-              email,
+        email: z
+          .string()
+          .email()
+          .refine(
+            async (val) => {
+              const email = validateEmail(val);
+              if (email === false) {
+                return false;
+              }
+              const possibleMatch = await client.user.findUnique({
+                where: {
+                  email,
+                },
+              });
+              return possibleMatch === null;
             },
-          });
-          return possibleMatch === null;
-        }, { message: 'email already in use' }),
+            { message: "email already in use" }
+          ),
         // Custom validator to ensure password is strong enough
-        password: z.string().min(4).max(128).refine( (val) => {
-          return isPasswordSecure(val);
-        }, { message: 'password is weak'}),
+        password: z
+          .string()
+          .min(4)
+          .max(128)
+          .refine(
+            (val) => {
+              return isPasswordSecure(val);
+            },
+            { message: "password is weak" }
+          ),
       })
     )
-    .query( async ({ input }) => {
-      const { email , name } = input;
+    .query(async ({ input }) => {
+      const { email, name } = input;
       const password = hashSync(input.password, 10);
       return await client.user.create({
         data: {
@@ -38,7 +68,7 @@ export const appRouter = router({
           password,
         },
       });
-    })
+    }),
 });
 
 // export type definition of API

@@ -1,22 +1,17 @@
-import type { User } from "@prisma/client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { Schema } from "~/dictionaries/schema";
 import Logo from "./Logo";
 
 type NavbarProps = {
   locale: Schema["navbar"];
-  loggedUser?: User["id"];
-  defaultFocused?: boolean;
   defaultSearch?: string;
   onSearch?: (text: string) => void;
 };
 
 export default function Navbar({
   locale,
-  defaultFocused = false,
   defaultSearch = "",
   onSearch = () => {},
 }: NavbarProps) {
@@ -32,10 +27,9 @@ export default function Navbar({
           <input
             type="text"
             placeholder={locale.searchPlaceholder}
-            className="input input-bordered w-full"
             defaultValue={defaultSearch}
+            className="input input-bordered w-full"
             onChange={(e) => onSearch(e.currentTarget.value)}
-            autoFocus={defaultFocused}
           />
         </div>
       </div>
@@ -55,13 +49,24 @@ export default function Navbar({
             {session?.user ? (
               <>
                 <li>
-                  <Link href={`/user/${session.user.id}`}>{locale.userButton}</Link>
+                  <Link href={`/user/${session.user.id}`}>
+                    {locale.userButton}
+                  </Link>
+                </li>
+                {session.user.orgs && session.user.orgs.length > 0 ? (
+                  <li>
+                    <Link href={`/org/`}>{locale.myOrg}</Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link href={`/org/create`}>{locale.createOrg}</Link>
+                  </li>
+                )}
+                <li>
+                  <Link href={`/settings`}>{locale.settingsButton}</Link>
                 </li>
                 <li onClick={handleLogout}>
                   <a>{locale.logoutButton}</a>
-                </li>
-                <li>
-                  <Link href={`/settings`}>{locale.settingsButton}</Link>
                 </li>
               </>
             ) : (

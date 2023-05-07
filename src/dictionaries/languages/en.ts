@@ -63,7 +63,17 @@ const en: Schema = {
       register: "Sign up",
     },
   },
+  create: {
+    title: "Ceate an organization now",
+    subtitle:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet nisi vel turpis rhoncus, sit amet dignissim neque scelerisque. Nam lobortis lobortis purus in blandit",
+    name: "Organization name",
+    visibility: "Visibility",
+    submit: "Create",
+  },
   navbar: {
+    createOrg: "Create organization",
+    myOrg: "My organizations",
     searchPlaceholder: "Name of the organization",
     userButton: "My profile",
     settingsButton: "Settings",

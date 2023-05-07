@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from "react";
 import type { Schema } from "~/dictionaries/schema";
-import { useState, useEffect, useDeferredValue } from "react";
 import { useRouter } from "next/router";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
+import { queryToString } from "~/utils/query";
 
 interface IDefaultLayout extends PropsWithChildren {
   locale: Schema;
@@ -11,23 +11,18 @@ interface IDefaultLayout extends PropsWithChildren {
 
 export default function DefaultLayout({ children, locale }: IDefaultLayout) {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
-  const deferredSearchQuery = useDeferredValue(searchQuery);
-
-  useEffect(() => {
-    if (deferredSearchQuery !== "") {
-      router.push({
-        pathname: "/search",
-        query: { text: deferredSearchQuery },
-      });
-    }
-  }, [deferredSearchQuery, router]);
-
+  const search = queryToString(router.query.text);
   return (
     <main>
       <Navbar
         locale={locale.navbar}
-        onSearch={setSearchQuery}
+        defaultSearch={search}
+        onSearch={(text) =>
+          router.push({
+            pathname: "/search",
+            query: { text },
+          })
+        }
       />
       {children}
       <Footer />

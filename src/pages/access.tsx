@@ -1,10 +1,11 @@
-import { signIn, useSession } from "next-auth/react";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next/types";
+import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   AiFillGithub,
@@ -214,9 +215,9 @@ export default function Access({
               {method === "register" && (
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text">
+                    <Link href="/legal" className="label-text link ">
                       {locale.access.cookies.label}
-                    </span>
+                    </Link>
                     <input
                       name="cookies"
                       type="checkbox"
