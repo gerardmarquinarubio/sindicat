@@ -1,10 +1,10 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { getDictionary } from "~/dictionaries";
-import Navbar from "~/components/Navbar";
-import Footer from "~/components/Footer";
-import Org, { RequiredOrgProps } from "~/components/Org";
-import { useState } from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import Footer from "~/components/Footer";
+import Navbar from "~/components/Navbar";
+import Org, { RequiredOrgProps } from "~/components/Org";
+import { getDictionary } from "~/dictionaries";
 
 const MOCK_ORGS: RequiredOrgProps[] = [
   {

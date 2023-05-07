@@ -1,11 +1,11 @@
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
-import LinkedinProvider from "next-auth/providers/linkedin";
-import CredentialsProvider from "next-auth/providers/credentials";
-import client from "~/prisma/client";
-import { validateEmail, isPasswordSecure } from "~/utils/secure";
 import { compareSync } from "bcrypt";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import LinkedinProvider from "next-auth/providers/linkedin";
+import client from "~/prisma/client";
+import { isPasswordSecure, validateEmail } from "~/utils/secure";
 
 if (
   !process.env.GOOGLE_SECRET ||

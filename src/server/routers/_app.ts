@@ -1,9 +1,8 @@
+import { hashSync } from "bcrypt";
 import { z } from "zod";
-import { procedure, router } from "../trpc";
+import client from "~/prisma/client";
 import { isPasswordSecure, validateEmail } from "~/utils/secure";
-import { hashSync, compareSync} from "bcrypt";
-import client from "~/prisma/client"; 
-import { TRPCClientError } from "@trpc/client";
+import { procedure, router } from "../trpc";
 
 export const appRouter = router({
   register: procedure

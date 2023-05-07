@@ -1,18 +1,18 @@
+import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next/types";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import {
-  AiFillGoogleCircle,
   AiFillGithub,
+  AiFillGoogleCircle,
   AiFillLinkedin,
 } from "react-icons/ai";
 import { getDictionary } from "~/dictionaries";
-import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-import { trpc, TRPCErrorToMessage } from "~/utils/trpc";
+import { TRPCErrorToMessage, trpc } from "~/utils/trpc";
 
 interface IErrors {
   name?: string;

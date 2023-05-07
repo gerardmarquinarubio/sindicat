@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Image from "next/image";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";

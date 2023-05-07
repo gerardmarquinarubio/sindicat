@@ -1,10 +1,10 @@
 import type { User } from "@prisma/client";
-import Link from "next/link";
-import Logo from "./Logo";
-import { Schema } from "~/dictionaries/schema";
-import { AiOutlineUserAdd } from "react-icons/ai";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect } from "react";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { Schema } from "~/dictionaries/schema";
+import Logo from "./Logo";
 
 type NavbarProps = {
   locale: Schema["navbar"];
@@ -21,9 +21,6 @@ export default function Navbar({
   onSearch = () => {},
 }: NavbarProps) {
   const { data: session } = useSession();
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
   function handleLogout() {
     signOut().then(console.warn).catch(console.error);
   }

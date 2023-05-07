@@ -1,26 +1,14 @@
-import Image from 'next/image'
-import Navbar from '~/components/Navbar';
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { getDictionary } from '~/dictionaries'
-import Footer from '~/components/Footer';
-import { useRouter } from 'next/router';
+import type { NextPageWithLayout } from "./_app";
+import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import Image from "next/image";
+import { getDictionary } from "~/dictionaries";
+import DefaultLayout from "~/layouts/DefaultLayout";
 
-
-export default function Home({
-  locale
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter();
+const Home: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ locale }) => {
   return (
-    <main>
-      <Navbar
-        locale={locale.navbar}
-        onSearch={(text) =>
-          router.push({
-            pathname: "/search",
-            query: { text },
-          })
-        }
-      />
+    <>
       <div
         className="hero min-h-[75vh]"
         style={{
@@ -48,7 +36,9 @@ export default function Home({
             alt="Side"
           />
           <div>
-            <h1 className="text-5xl font-bold">{locale.index.userCounterTitle}</h1>
+            <h1 className="text-5xl font-bold">
+              {locale.index.userCounterTitle}
+            </h1>
             <p className="py-6">{locale.index.userCounteSubtitle}</p>
             <button className="btn btn-primary">
               {locale.index.startButton}
@@ -56,15 +46,20 @@ export default function Home({
           </div>
         </div>
       </div>
-      <Footer />
-    </main>
+    </>
   );
-}
+};
+
+Home.getLayout = (page) => {
+  return <DefaultLayout locale={page.props.locale}>{page}</DefaultLayout>;
+};
+
+export default Home;
 
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
   return {
     props: {
-      locale: getDictionary(locale)
-    }
-  }
-}
+      locale: getDictionary(locale),
+    },
+  };
+};
