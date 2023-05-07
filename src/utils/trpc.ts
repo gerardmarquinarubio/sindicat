@@ -1,4 +1,4 @@
-import { httpBatchLink } from "@trpc/client";
+import { TRPCClientError, httpBatchLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import type { AppRouter } from "../server/routers/_app";
 
@@ -42,3 +42,18 @@ export const trpc = createTRPCNext<AppRouter>({
    **/
   ssr: false,
 });
+
+export function TRPCErrorToMessage(error: Error): Record<string, string> {
+  const errorBody = `${error}`.split("TRPCClientError:")[1];
+  const errorPayload: {
+    message: string;
+    path: string[];
+  }[] = JSON.parse(errorBody) as any;
+  const errorMessages: Record<string, string> = {};
+  for (const error of errorPayload) {
+    for (const path of error.path) {
+      errorMessages[path] = `${error.message} ${errorMessages[path] ?? ""}`;
+    }
+  }
+  return errorMessages;
+}

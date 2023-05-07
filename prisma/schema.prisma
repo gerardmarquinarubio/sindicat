@@ -39,10 +39,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name    String // name of the user e.g "Foo"
-  content String? // description of the user e.g "I'm a Star Wars fan!"
-  email   String   @unique
-  socials String[] // social links
+  name     String  // name of the user e.g "Foo"
+  content  String? // description of the user e.g "I'm a Star Wars fan!"
+  email    String   @unique
+  socials  String[] // social links
+  password String
 
   role       Role       @default(User) // is he a super-admin?
   visibility Visibility @default(Protected) // can other people see his socials?
@@ -68,6 +69,8 @@ model Post {
   org         Org           @relation(references: [id], fields: [orgId])
   orgId       Int
   interaction Interaction[]
+
+  media String
 }
 
 model Interaction {
@@ -75,8 +78,8 @@ model Interaction {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  type       InteractionType
-  content    String
+  type    InteractionType
+  content String
 
   post     Post @relation(references: [id], fields: [postId])
   postId   Int
@@ -89,12 +92,15 @@ model Org {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name       String
-  content    String // Description of the Org
-  visibility Visibility @default(Protected)
+  name         String
+  content      String // Description of the Org
+  visibility   Visibility @default(Protected)
+  verification Int        @default(0)
 
   users UsersOnOrg[]
   posts Post[]
+
+  media String
 }
 
 model UsersOnOrg {

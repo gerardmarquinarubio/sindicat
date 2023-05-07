@@ -36,6 +36,10 @@ export type Schema = {
       title: string;
       subtitle: string;
     };
+    name: {
+      label: string;
+      placeholder: string;
+    };
     email: {
       label: string;
       placeholder: string;
