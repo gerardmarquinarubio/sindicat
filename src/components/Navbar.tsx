@@ -1,6 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineLogin, AiOutlineUser } from "react-icons/ai";
 import { Schema } from "~/dictionaries/schema";
 import Logo from "./Logo";
 
@@ -40,7 +40,7 @@ export default function Navbar({
             tabIndex={0}
             className="btn btn-outline btn-circle avatar text-2xl"
           >
-            <AiOutlineUserAdd />
+            { session?.user ? <AiOutlineUser />: <AiOutlineLogin /> }
           </label>
           <ul
             tabIndex={0}
@@ -63,7 +63,7 @@ export default function Navbar({
                   </li>
                 )}
                 <li>
-                  <Link href={`/settings`}>{locale.settingsButton}</Link>
+                  <Link href={`/user/settings`}>{locale.settingsButton}</Link>
                 </li>
                 <li onClick={handleLogout}>
                   <a>{locale.logoutButton}</a>
@@ -87,9 +87,6 @@ export default function Navbar({
                   >
                     {locale.registerButton}
                   </Link>
-                </li>
-                <li>
-                  <Link href={`/settings`}>{locale.settingsButton}</Link>
                 </li>
               </>
             )}

@@ -4,23 +4,35 @@ import client from "~/prisma/client";
 import { isPasswordSecure, validateEmail } from "~/utils/secure";
 import { procedure, router } from "../trpc";
 
+const UnauthorizedError = new Error("Unauthorized");
+
 export const appRouter = router({
   create: procedure
     .input(
       z.object({
-        name: z.string(),
-        description: z.string(),
+        name: z.string().min(3).max(64),
+        description: z.string().min(10).max(512),
       })
     )
     .query(async ({ input, ctx }) => {
-      return ctx.session;
-      /* return await client.org.create({
+      if (!ctx.session?.user) {
+        throw UnauthorizedError;
+      }
+      const userId = +ctx.session.user.id;
+      const random = Math.random() * 999;
+      return await client.org.create({
         data: {
           name: input.name,
           content: input.description,
-          media: "",
+          media: `https://picsum.photos/900/500?random=${random}`,
+          users: {
+            create: {
+              role: "Admin",
+              userId: userId,
+            },
+          },
         },
-      }); */
+      });
     }),
   register: procedure
     .input(
@@ -65,7 +77,7 @@ export const appRouter = router({
         data: {
           name,
           email,
-          password,
+          password
         },
       });
     }),

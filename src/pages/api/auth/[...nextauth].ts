@@ -1,5 +1,5 @@
 import { compareSync } from "bcrypt";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -18,7 +18,7 @@ if (
   throw new Error("providers not set in .env");
 }
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   // Custom callback to merge token and user types
   callbacks: {
     jwt({ token, user }) {
@@ -71,8 +71,8 @@ export default NextAuth({
                 email,
               },
               include: {
-                orgs: true
-              }
+                orgs: true,
+              },
             });
           if (!compareSync(password, hashedPassword))
             throw new Error("invalid credentials");
@@ -83,4 +83,6 @@ export default NextAuth({
       },
     }),
   ],
-});
+};
+
+export default NextAuth(authOptions);

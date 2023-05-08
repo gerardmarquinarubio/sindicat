@@ -60,8 +60,17 @@ export type Schema = {
   create: {
     title: string;
     subtitle: string;
-    name: string;
-    visibility: string;
+    name: {
+      label: string;
+      placeholder: string;
+    };
+    description: {
+      label: string;
+      placeholder: string;
+    };
+    visibility: {
+      label: string;
+    };
     submit: string;
   }
   navbar: {

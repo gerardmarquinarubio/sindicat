@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    esmExternals: false,
+  },
   reactStrictMode: true,
   i18n: {
     locales: ["en", "es", "ca"],

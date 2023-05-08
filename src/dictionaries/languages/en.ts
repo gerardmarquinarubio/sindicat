@@ -64,11 +64,20 @@ const en: Schema = {
     },
   },
   create: {
-    title: "Ceate an organization now",
+    title: "Start organizing now",
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet nisi vel turpis rhoncus, sit amet dignissim neque scelerisque. Nam lobortis lobortis purus in blandit",
-    name: "Organization name",
-    visibility: "Visibility",
+    name: {
+      label: "Name",
+      placeholder: "Cool Corp",
+    },
+    description: {
+      label: "Description",
+      placeholder: "Lorem ipsum dolor sit amet",
+    },
+    visibility: {
+      label: "Visibility",
+    },
     submit: "Create",
   },
   navbar: {

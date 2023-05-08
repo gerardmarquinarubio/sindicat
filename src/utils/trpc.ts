@@ -44,16 +44,22 @@ export const trpc = createTRPCNext<AppRouter>({
 });
 
 export function TRPCErrorToMessage(error: Error): Record<string, string> {
-  const errorBody = `${error}`.split("TRPCClientError:")[1];
-  const errorPayload: {
-    message: string;
-    path: string[];
-  }[] = JSON.parse(errorBody) as any;
-  const errorMessages: Record<string, string> = {};
-  for (const error of errorPayload) {
-    for (const path of error.path) {
-      errorMessages[path] = `${error.message} ${errorMessages[path] ?? ""}`;
+  try {
+    const errorBody = `${error}`.split("TRPCClientError:")[1];
+    const errorPayload: {
+      message: string;
+      path: string[];
+    }[] = JSON.parse(errorBody) as any;
+    const errorMessages: Record<string, string> = {};
+    for (const error of errorPayload) {
+      for (const path of error.path) {
+        errorMessages[path] = `${error.message} ${errorMessages[path] ?? ""}`;
+      }
     }
+    return errorMessages;
+  } catch (e) {
+    console.error(e);
+    return { error: "unpexpected error" };
   }
-  return errorMessages;
+
 }

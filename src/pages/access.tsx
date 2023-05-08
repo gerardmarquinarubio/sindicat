@@ -14,6 +14,7 @@ import {
 } from "react-icons/ai";
 import { getDictionary } from "~/dictionaries";
 import { TRPCErrorToMessage, trpc } from "~/utils/trpc";
+import { Uploader } from "~/components/Uploader";
 
 interface IErrors {
   name?: string;
@@ -50,6 +51,9 @@ export default function Access({
   }
 
   function handleSignIn(email: string, password: string) {
+    if (!email || !password) {
+      return;
+    }
     signIn("credentials", { email, password, redirect: false });
   }
 

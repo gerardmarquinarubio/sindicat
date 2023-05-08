@@ -39,7 +39,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name     String  // name of the user e.g "Foo"
+  name     String // name of the user e.g "Foo"
   content  String? // description of the user e.g "I'm a Star Wars fan!"
   email    String   @unique
   socials  String[] // social links
@@ -51,6 +51,8 @@ model User {
   orgs         UsersOnOrg[]
   posts        Post[]
   interactions Interaction[]
+
+  media String?
 }
 
 model Post {
@@ -70,7 +72,7 @@ model Post {
   orgId       Int
   interaction Interaction[]
 
-  media String
+  media String?
 }
 
 model Interaction {
@@ -100,7 +102,7 @@ model Org {
   users UsersOnOrg[]
   posts Post[]
 
-  media String
+  media String?
 }
 
 model UsersOnOrg {
