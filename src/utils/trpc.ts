@@ -61,5 +61,4 @@ export function TRPCErrorToMessage(error: Error): Record<string, string> {
     console.error(e);
     return { error: "unpexpected error" };
   }
-
 }

@@ -1,6 +1,6 @@
 export async function uploadImage(file: File): Promise<string> {
-    const encodedFile = await fileToBase64(file);
-    const data = await fetch("/api/upload", {
+  const encodedFile = await fileToBase64(file);
+  const data = await fetch("/api/upload", {
     method: "POST",
     body: JSON.stringify({ file: encodedFile }),
     headers: {

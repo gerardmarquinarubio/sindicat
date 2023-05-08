@@ -77,7 +77,7 @@ export const appRouter = router({
         data: {
           name,
           email,
-          password
+          password,
         },
       });
     }),

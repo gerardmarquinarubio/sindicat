@@ -31,7 +31,7 @@ export default function Me({
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 col-span-3 gap-2 max-h-[60vh] overflow-scroll">
-            <div></div>
+          <div></div>
         </div>
       </div>
       <Footer />

@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { getDictionary } from "~/dictionaries";
-import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import { trpc } from "~/utils/trpc";
 import { Uploader } from "~/components/Uploader";
 
@@ -111,7 +109,7 @@ export default function Access({
                   </span>
                 </label>
               </div>
-              <Uploader onUpload={setOrgLogo} label="Logo"/>
+              <Uploader onUpload={setOrgLogo} label="Logo" />
               <div className="form-control mt-6">
                 <button className="btn btn-primary" type="submit">
                   {locale.create.submit}

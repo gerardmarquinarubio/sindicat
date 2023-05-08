@@ -1,4 +1,4 @@
-import type { Schema } from '../schema';
+import type { Schema } from "../schema";
 
 const ca: Schema = {
   index: {

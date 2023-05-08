@@ -24,6 +24,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       {getLayout(<Component {...pageProps} />)}
     </SessionProvider>
   );
-};
+}
 
 export default trpc.withTRPC(App);

@@ -2,7 +2,7 @@ import { passwordStrength } from "check-password-strength";
 import emailValidator from "email-validator";
 import normalizeEmail from "normalize-email";
 
-export function isPasswordSecure(password: string): boolean  {
+export function isPasswordSecure(password: string): boolean {
   return passwordStrength(password).id >= 2;
 }
 

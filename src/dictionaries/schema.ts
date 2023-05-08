@@ -72,7 +72,7 @@ export type Schema = {
       label: string;
     };
     submit: string;
-  }
+  };
   navbar: {
     myOrg: string;
     createOrg: string;

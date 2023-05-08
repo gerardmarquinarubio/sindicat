@@ -1,10 +1,8 @@
-import {
-    Org
-} from '@prisma/client';
+import { Org } from "@prisma/client";
 
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 import { AiFillCloseCircle, AiFillEye, AiFillPlusCircle } from "react-icons/ai";
 
 export type RequiredOrgProps = Org;
@@ -19,7 +17,13 @@ export type ExtraOrgProps =
 
 export type OrgProps = RequiredOrgProps & ExtraOrgProps;
 
-export default function Organization({ minified, name, content, media, id } : OrgProps) {
+export default function Organization({
+  minified,
+  name,
+  content,
+  media,
+  id,
+}: OrgProps) {
   const router = useRouter();
 
   const goToOrg = useCallback(() => router.push(`/org/4321`), [router]);

@@ -1,7 +1,7 @@
-import languages from './languages';
-import { Schema } from './schema';
+import languages from "./languages";
+import { Schema } from "./schema";
 
-const DEFAULT_LOCALE: keyof typeof languages = 'en';
+const DEFAULT_LOCALE: keyof typeof languages = "en";
 
 export function getDictionary(locale?: string): Schema {
   if (!locale || !(locale in languages)) locale = DEFAULT_LOCALE;

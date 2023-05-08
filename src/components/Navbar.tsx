@@ -40,7 +40,7 @@ export default function Navbar({
             tabIndex={0}
             className="btn btn-outline btn-circle avatar text-2xl"
           >
-            { session?.user ? <AiOutlineUser />: <AiOutlineLogin /> }
+            {session?.user ? <AiOutlineUser /> : <AiOutlineLogin />}
           </label>
           <ul
             tabIndex={0}

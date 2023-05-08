@@ -3,10 +3,12 @@ import type { Schema } from "../schema";
 const es: Schema = {
   index: {
     greeting: "Un futuro mejor",
-    subtitle: "En un mundo cada vez más globalizado donde los trabajos remotos tienen una mayor presencia, se echan en falta los ambientes de organización colectiva, donde el proletariado podía expresar de manera libre sus ideas y auto-gestionarse frente a la patronal.",
+    subtitle:
+      "En un mundo cada vez más globalizado donde los trabajos remotos tienen una mayor presencia, se echan en falta los ambientes de organización colectiva, donde el proletariado podía expresar de manera libre sus ideas y auto-gestionarse frente a la patronal.",
     startButton: "Empieza ya",
     userCounterTitle: "Nuestros usuarios",
-    userCounteSubtitle: "Nuestros usuarios alrededor del mundo están haciendo cosas increibles, aquí puedes ver un ejemplo"
+    userCounteSubtitle:
+      "Nuestros usuarios alrededor del mundo están haciendo cosas increibles, aquí puedes ver un ejemplo",
   },
   search: {
     toggles: {

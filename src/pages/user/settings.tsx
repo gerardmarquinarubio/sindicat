@@ -13,7 +13,9 @@ const Settings: NextPageWithLayout<
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-200">
       <form className="card-body">
         <Uploader onUpload={setNewUrlProfilePicture} label="Profile picture" />
-        <button className="btn btn-primary" type="submit">Save</button>
+        <button className="btn btn-primary" type="submit">
+          Save
+        </button>
       </form>
     </div>
   );

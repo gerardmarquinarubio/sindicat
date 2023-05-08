@@ -36,7 +36,7 @@ const handleUpload: NextApiHandler = async (req, res) => {
       image: file,
     }),
   });
-  const json = await data.json() as any;
+  const json = (await data.json()) as any;
   if (json.error) {
     res.status(400).send({ error: json.error });
     return;
