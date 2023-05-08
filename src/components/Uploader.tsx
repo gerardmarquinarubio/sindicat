@@ -5,10 +5,11 @@ import { uploadImage } from "~/utils/uploadImage";
 import Image from "next/image";
 
 interface UploaderProps {
+  label: string;
   onUpload: (url: string) => void;
 }
 
-export function Uploader({ onUpload }: UploaderProps) {
+export function Uploader({ label, onUpload }: UploaderProps) {
   const [imageLink, setImageLink] = useState("");
 
   const onDrop = useCallback((acceptedFiles: any) => {
@@ -34,7 +35,7 @@ export function Uploader({ onUpload }: UploaderProps) {
       {!imageLink ? (
         <>
           <label className="label">
-            <span className="label-text">Logo</span>
+            <span className="label-text">{label}</span>
           </label>
           <div
             {...getRootProps()}

@@ -16,6 +16,7 @@ export default function Access({
   locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [errors, setErrors] = useState<IErrors>({});
+  const [orgLogo, setOrgLogo] = useState("");
   const { create } = trpc.useContext();
   function extractValuesFromTarget(target: any) {
     return {
@@ -110,7 +111,7 @@ export default function Access({
                   </span>
                 </label>
               </div>
-              <Uploader />
+              <Uploader onUpload={setOrgLogo} label="Logo"/>
               <div className="form-control mt-6">
                 <button className="btn btn-primary" type="submit">
                   {locale.create.submit}
