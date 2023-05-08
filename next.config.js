@@ -9,7 +9,7 @@ const nextConfig = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["picsum.photos"],
+    domains: ["picsum.photos", "i.ibb.co"],
   },
 };
 
