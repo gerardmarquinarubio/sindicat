@@ -4,6 +4,7 @@ import { getDictionary } from "~/dictionaries";
 import { useState } from "react";
 import { trpc } from "~/utils/trpc";
 import { Uploader } from "~/components/Uploader";
+import { useRouter } from "next/router";
 
 interface IErrors {
   name?: string;
@@ -16,6 +17,7 @@ export default function Access({
   const [errors, setErrors] = useState<IErrors>({});
   const [orgLogo, setOrgLogo] = useState("");
   const { create } = trpc.useContext();
+  const router = useRouter();
   function extractValuesFromTarget(target: any) {
     return {
       name: target.elements?.name?.value,
@@ -31,7 +33,11 @@ export default function Access({
         name,
         description,
       })
-      .then(console.log)
+      .then(({ id }) =>
+        router.push({
+          pathname: `/org/${id}`,
+        })
+      )
       .catch(console.error);
   }
   return (

@@ -58,7 +58,7 @@ export default function Organization({
         </div>
         <Image
           alt={`${name} cover image`}
-          src={media}
+          src={media ?? "/images/placeholder.png"}
           className="absolute -z-10 rounded"
           fill
         />

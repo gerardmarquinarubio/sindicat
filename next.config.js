@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     esmExternals: false,
+    swcPlugins: [["next-superjson-plugin", { excluded: [] }]],
   },
   reactStrictMode: true,
   i18n: {

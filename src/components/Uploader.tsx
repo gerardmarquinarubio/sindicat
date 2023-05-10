@@ -12,23 +12,29 @@ interface UploaderProps {
 export function Uploader({ label, onUpload }: UploaderProps) {
   const [imageLink, setImageLink] = useState("");
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    handleUpload(acceptedFiles);
-  }, []);
+  const handleUpload = useCallback(
+    (files: FileList | null) => {
+      if (files)
+        (async () => {
+          const [fileToUpload] = Array.from(files);
+          const url = await uploadImage(fileToUpload);
+          onUpload(url);
+          return url;
+        })()
+          .then(setImageLink)
+          .catch(console.error);
+    },
+    [onUpload]
+  );
+
+  const onDrop = useCallback(
+    (acceptedFiles: any) => {
+      handleUpload(acceptedFiles);
+    },
+    [handleUpload]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
-  function handleUpload(files: FileList | null) {
-    if (files)
-      (async () => {
-        const [fileToUpload] = Array.from(files);
-        const url = await uploadImage(fileToUpload);
-        onUpload(url);
-        return url;
-      })()
-        .then(setImageLink)
-        .catch(console.error);
-  }
 
   return (
     <div className="form-control">

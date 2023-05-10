@@ -1,6 +1,7 @@
 import { Org } from "@prisma/client";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Image from "next/image";
+import { useEffect } from "react";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import { getDictionary } from "~/dictionaries";
@@ -49,25 +50,9 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   }
 
   const id = parseInt(params.id);
-  let org: Org;
-
-  if (id === 4321) {
-    org = {
-      id: 1234,
-      createdAt: "2023/01/01",
-      updatedAt: "2023/02/12",
-      name: "Amazon",
-      content:
-        "Amazon is the leading company in customer deliveries, media and internet services",
-      visibility: "Public",
-      media: "https://picsum.photos/500/200?random=1",
-      verification: 1,
-    } as unknown as Org;
-  } else {
-    org = await client.org.findUniqueOrThrow({
-      where: { id },
-    });
-  }
+  const org = await client.org.findUniqueOrThrow({
+    where: { id },
+  });
 
   return {
     props: {
@@ -80,7 +65,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   return {
-    paths: ["/org/321"],
+    paths: [],
     fallback: "blocking",
   };
 };
