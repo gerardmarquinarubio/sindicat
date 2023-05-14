@@ -8,6 +8,36 @@ import { PostType } from "@prisma/client";
 const UnauthorizedError = new Error("Unauthorized");
 
 export const appRouter = router({
+  createInteraction: procedure
+    .input(
+      z.object({
+        content: z.string(),
+        post: z.number(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      if (!ctx?.session?.user) {
+        throw UnauthorizedError;
+      }
+      console.log(input, ctx.session.user);
+      return await client.interaction.create({
+        data: {
+          type: "Comment",
+          content: input.content,
+          createdAt: Date.now(),
+          post: {
+            connect: {
+              id: input.post,
+            },
+          },
+          author: {
+            connect: {
+              id: +ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
   getPosts: procedure
     .input(
       z.object({
@@ -47,16 +77,13 @@ export const appRouter = router({
         throw UnauthorizedError;
       }
       const { type, name, content, media } = input;
-      const now = Date.now();
-      const twoWeeksInMs = 14 * 24 * 60 * 60 * 1000;
-      const inTwoWeeks = now + twoWeeksInMs;
       return await client.post.create({
         data: {
           type: type as PostType,
           name: name,
           content: content,
-          closesAt: new Date(inTwoWeeks),
           media: media,
+          createdAt: Date.now(),
           author: {
             connect: {
               id: +ctx.session.user.id,
@@ -158,6 +185,7 @@ export const appRouter = router({
           name: input.name,
           content: input.description,
           media: input.logo,
+          createdAt: Date.now(),
           users: {
             create: {
               role: "Admin",
@@ -211,6 +239,7 @@ export const appRouter = router({
           name,
           email,
           password,
+          createdAt: Date.now(),
         },
       });
     }),

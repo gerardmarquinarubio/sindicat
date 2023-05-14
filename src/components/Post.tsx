@@ -1,5 +1,4 @@
 import type { Interaction, Post, User } from "@prisma/client";
-import type { ObjectMappable } from "~/utils/ObjectMappable";
 import Image from "next/image";
 import { AiFillLike, AiFillDislike, AiFillRead } from "react-icons/ai";
 import { useRouter } from "next/router";
@@ -13,7 +12,7 @@ export default function Post({
   type,
   createdAt,
   author,
-}: ObjectMappable<Post & { author: ObjectMappable<User> }>) {
+}: Post & { author: User }) {
   const router = useRouter();
   function goToPostPage() {
     router.push({
@@ -27,13 +26,21 @@ export default function Post({
           className="relative w-full h-32 cursor-pointer"
           onClick={goToPostPage}
         >
-          <Image src={media} alt="Shoes" fill style={{ aspectRatio: "auto" }} />
+          <Image
+            src={media}
+            alt="post image"
+            fill
+            style={{ aspectRatio: "auto" }}
+          />
         </figure>
       )}
       <div className="card-body">
         <p>
-          <Link href={`/user/${author.id}`}>by {author.name}</Link>{" "}
-          {`on the ${new Date(createdAt).toLocaleDateString()}`}
+          by{" "}
+          <Link href={`/user/${author.id}`} className="link link-accent">
+            {author.name}
+          </Link>{" "}
+          {`on the ${new Date(createdAt).toISOString().split("T")[0]}`}
         </p>
         <h2 className="card-title cursor-pointer" onClick={goToPostPage}>
           {name}

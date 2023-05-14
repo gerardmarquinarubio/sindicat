@@ -29,8 +29,7 @@ enum InteractionType {
 
 model User {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt Int
 
   name     String // name of the user e.g "Foo"
   content  String? // description of the user e.g "I'm a Star Wars fan!"
@@ -49,8 +48,7 @@ model User {
 
 model Post {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt Int
 
   name       String // Title of the post
   type       PostType
@@ -67,8 +65,7 @@ model Post {
 
 model Interaction {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt Int
 
   type    InteractionType
   content String
@@ -81,8 +78,7 @@ model Interaction {
 
 model Org {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt Int
 
   name         String
   content      String // Description of the Org

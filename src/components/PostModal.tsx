@@ -2,14 +2,13 @@ import { type Post, PostType } from "@prisma/client";
 import { useRef, useState } from "react";
 import { Uploader } from "./Uploader";
 import { trpc } from "~/utils/trpc";
-import { DatesToStrings } from "~/utils/DateToString";
 
 interface PostModalProps {
   org: number;
   key?: string;
   openButtonText?: string;
   openButtonClassname?: string;
-  onPost?: (post: DatesToStrings<Post>) => void;
+  onPost?: (post: Post) => void;
 }
 
 const DEFAULT_POST_TYPE: PostType = "Text";
