@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { trpc } from "~/utils/trpc";
+import Comment from "~/components/Comment";
 
 interface IErrors {
   post?: string;
@@ -69,9 +70,7 @@ const PostPage: NextPageWithLayout<
             {interactions
               .filter((interaction) => interaction.type === "Comment")
               .map((interaction) => (
-                <div key={interaction.id} className="w-full">
-                  {interaction.content}
-                </div>
+                <Comment key={interaction.id} {...interaction} />
               ))}
             <form
               className="flex flex-col items-start w-96 gap-2"
@@ -127,7 +126,11 @@ export const getStaticProps = async ({
     where: { id },
     include: {
       author: true,
-      interaction: true,
+      interaction: {
+        include: {
+          author: true,
+        },
+      },
     },
   });
 

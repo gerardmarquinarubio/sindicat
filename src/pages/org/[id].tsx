@@ -15,7 +15,6 @@ import PostModal from "~/components/PostModal";
 import { trpc } from "~/utils/trpc";
 import { useEffect, useState } from "react";
 import Post from "~/components/Post";
-import { ObjectMappable } from "~/utils/ObjectMappable";
 
 type Filter = PostType | "all";
 

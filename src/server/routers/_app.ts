@@ -36,6 +36,9 @@ export const appRouter = router({
             },
           },
         },
+        include: {
+          author: true,
+        },
       });
     }),
   getPosts: procedure
