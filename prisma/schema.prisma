@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -15,23 +16,15 @@ enum Role {
   Admin
 }
 
-enum Visibility {
-  Private
-  Protected
-  Public
-}
-
 enum PostType {
   Text
   Link
   Image
-  Poll
 }
 
 enum InteractionType {
   Comment
   Reaction
-  Vote
 }
 
 model User {
@@ -46,7 +39,6 @@ model User {
   password String
 
   role       Role       @default(User) // is he a super-admin?
-  visibility Visibility @default(Protected) // can other people see his socials?
 
   orgs         UsersOnOrg[]
   posts        Post[]
@@ -64,7 +56,6 @@ model Post {
   name       String // Title of the post
   type       PostType
   content    String
-  visibility Visibility @default(Protected)
 
   author      User          @relation(references: [id], fields: [authorId])
   authorId    Int
@@ -96,7 +87,6 @@ model Org {
 
   name         String
   content      String // Description of the Org
-  visibility   Visibility @default(Protected)
   verification Int        @default(0)
 
   users UsersOnOrg[]

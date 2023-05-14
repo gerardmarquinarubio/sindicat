@@ -15,8 +15,8 @@ export default function Access({
   locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [errors, setErrors] = useState<IErrors>({});
-  const [orgLogo, setOrgLogo] = useState("");
-  const { create } = trpc.useContext();
+  const [orgLogo, setOrgLogo] = useState("/images/placeholder.png");
+  const { createOrg } = trpc.useContext();
   const router = useRouter();
   function extractValuesFromTarget(target: any) {
     return {
@@ -28,10 +28,11 @@ export default function Access({
     if (!name || !description) {
       return;
     }
-    create
+    createOrg
       .fetch({
         name,
         description,
+        logo: orgLogo,
       })
       .then(({ id }) =>
         router.push({

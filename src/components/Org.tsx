@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { AiFillCloseCircle, AiFillEye, AiFillPlusCircle } from "react-icons/ai";
+import { trpc } from "~/utils/trpc";
 
 export type RequiredOrgProps = Org;
 
@@ -26,7 +27,13 @@ export default function Organization({
 }: OrgProps) {
   const router = useRouter();
 
-  const goToOrg = useCallback(() => router.push(`/org/4321`), [router]);
+  const { deleteOrg } = trpc.useContext();
+
+  const goToOrg = useCallback(() => router.push(`/org/${id}`), [router, id]);
+
+  const handleDelete = () => {
+    deleteOrg.fetch({ id }).then(console.log).catch(console.error);
+  };
 
   if (minified) {
     return (
@@ -52,7 +59,13 @@ export default function Organization({
           <button className="btn btn-sm btn-outline btn-circle btn-success">
             <AiFillPlusCircle />
           </button>
-          <button className="btn btn-sm btn-outline btn-circle btn-error">
+          <button
+            className="btn btn-sm btn-outline btn-circle btn-error"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete();
+            }}
+          >
             <AiFillCloseCircle />
           </button>
         </div>

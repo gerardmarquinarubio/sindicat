@@ -55,12 +55,17 @@ export function Uploader({ label, onUpload }: UploaderProps) {
           </div>
         </>
       ) : (
-        <div className="relative w-full h-32 flex justify-center items-center rounded-lg overflow-hidden">
-          <Image alt="uploaded-image" src={imageLink} fill />
-          <div className="bg-opacity-80 bg-slate-900 w-full h-full z-10 flex justify-center items-center">
-            <p className="text-center">Picture uploaded successfully</p>
+        <>
+          <label className="label">
+            <span className="label-text">{label}</span>
+          </label>
+          <div className="relative w-full h-32 flex justify-center items-center rounded-lg overflow-hidden">
+            <Image alt="uploaded-image" src={imageLink} fill />
+            <div className="bg-opacity-80 bg-slate-900 w-full h-full z-10 flex justify-center items-center">
+              <p className="text-center">Picture uploaded successfully</p>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
