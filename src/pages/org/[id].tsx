@@ -15,7 +15,7 @@ import PostModal from "~/components/PostModal";
 import { trpc } from "~/utils/trpc";
 import { useEffect, useState } from "react";
 import Post from "~/components/Post";
-import { DatesToStrings } from "~/utils/DateToString";
+import { ObjectMappable } from "~/utils/ObjectMappable";
 
 type Filter = PostType | "all";
 
@@ -26,7 +26,8 @@ export default function Org({
   org,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { getPosts } = trpc.useContext();
-  const [posts, setPosts] = useState<DatesToStrings<IPost>[]>([]);
+  type getPostsResult = Awaited<ReturnType<(typeof getPosts)["fetch"]>>;
+  const [posts, setPosts] = useState<getPostsResult>([]);
   const [filterPosts, setFilterPosts] = useState(DEFAULT_FILTER);
   function fetchPosts() {
     getPosts

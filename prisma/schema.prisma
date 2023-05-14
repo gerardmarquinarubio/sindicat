@@ -51,7 +51,6 @@ model Post {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  closesAt  DateTime // When is the post no longer active for interactivity
 
   name       String // Title of the post
   type       PostType

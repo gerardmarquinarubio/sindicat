@@ -1,7 +1,5 @@
 import {
   GetStaticPaths,
-  GetStaticPathsContext,
-  GetStaticProps,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
@@ -9,18 +7,26 @@ import { getDictionary } from "~/dictionaries";
 import client from "~/prisma/client";
 import { NextPageWithLayout } from "../_app";
 import DefaultLayout from "~/layouts/DefaultLayout";
+import Post from "~/components/Post";
 
-const Post: NextPageWithLayout<
+const PostPage: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
-> = ({ locale }) => {
-  return <></>;
+> = ({ locale, post }) => {
+  return (
+    <div>
+      <Post {...post} />
+      <div className="w-full">
+        <h1>Comments section</h1>
+      </div>
+    </div>
+  );
 };
 
-Post.getLayout = (page) => {
+PostPage.getLayout = (page) => {
   return <DefaultLayout locale={page.props.locale}>{page}</DefaultLayout>;
 };
 
-export default Post;
+export default PostPage;
 
 export const getStaticProps = async ({
   locale,
@@ -35,17 +41,18 @@ export const getStaticProps = async ({
   }
 
   const id = parseInt(params.id);
-  const org = await client.org.findUniqueOrThrow({
+  const post = await client.post.findUniqueOrThrow({
     where: { id },
     include: {
-      users: true,
+      author: true,
+      interaction: true,
     },
   });
 
   return {
     props: {
       locale: getDictionary(locale),
-      org,
+      post,
     },
     revalidate: 5,
   };

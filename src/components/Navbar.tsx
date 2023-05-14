@@ -53,11 +53,7 @@ export default function Navbar({
                     {locale.userButton}
                   </Link>
                 </li>
-                {session.user.orgs && session.user.orgs.length > 0 ? (
-                  <li>
-                    <Link href={`/org/`}>{locale.myOrg}</Link>
-                  </li>
-                ) : (
+                {session.user.orgs && session.user.orgs.length === 0 && (
                   <li>
                     <Link href={`/org/create`}>{locale.createOrg}</Link>
                   </li>

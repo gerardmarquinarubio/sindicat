@@ -21,6 +21,10 @@ export const appRouter = router({
           orgId: input.org,
           type: input.type === "all" ? undefined : (input.type as PostType),
         },
+        include: {
+          author: true,
+          interaction: true,
+        },
       });
     }),
   createPost: procedure
