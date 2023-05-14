@@ -35,6 +35,7 @@ export default function Org({
       .then(setPosts)
       .catch(console.error);
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(fetchPosts, [filterPosts]);
   return (
     <main>
