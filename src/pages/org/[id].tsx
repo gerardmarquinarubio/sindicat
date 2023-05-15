@@ -84,7 +84,7 @@ export default function Org({
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

@@ -1,27 +1,27 @@
 import { useRouter } from "next/router";
+import { Schema } from "~/dictionaries/schema";
 
-export default function Footer() {
+export default function Footer({ locale }: { locale: Schema }) {
   const router = useRouter();
-
   return (
     <footer className="footer p-10 text-base-content bg-gradient-to-l from-slate-900 to-slate-800">
       <div>
-        <span className="footer-title">Legal</span>
-        <a className="link link-hover">TOS & Conditions</a>
-        <a className="link link-hover">Privacy & GDPR</a>
-        <a className="link link-hover">Licenses</a>
+        <span className="footer-title">{locale.footer.legal.label}</span>
+        <a className="link link-hover">{locale.footer.legal.tos}</a>
+        <a className="link link-hover">{locale.footer.legal.privacy}</a>
+        <a className="link link-hover">{locale.footer.legal.licenses}</a>
       </div>
       <div>
-        <span className="footer-title">FAQ</span>
-        <a className="link link-hover">Who are we?</a>
-        <a className="link link-hover">Do you collect my data?</a>
-        <a className="link link-hover">How was this made?</a>
-        <a className="link link-hover">Where can I find more resources?</a>
+        <span className="footer-title">{locale.footer.faq.label}</span>
+        <a className="link link-hover">{locale.footer.faq.who}</a>
+        <a className="link link-hover">{locale.footer.faq.data}</a>
+        <a className="link link-hover">{locale.footer.faq.how}</a>
+        <a className="link link-hover">{locale.footer.faq.res}</a>
       </div>
       <div>
-        <span className="footer-title">Resources</span>
-        <a className="link link-hover">Your rights as a worker</a>
-        <a className="link link-hover">Quotes & media</a>
+        <span className="footer-title">{locale.footer.res.label}</span>
+        <a className="link link-hover">{locale.footer.res.rights}</a>
+        <a className="link link-hover">{locale.footer.res.quotes}</a>
       </div>
       <div>
         <select

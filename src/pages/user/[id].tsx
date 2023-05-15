@@ -38,7 +38,7 @@ export default function Me({
           </div>
         </article>
       </section>
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

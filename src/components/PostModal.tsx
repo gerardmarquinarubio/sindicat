@@ -71,7 +71,7 @@ export default function PostModal({
         onChange={(e) => setModalOpen((prev) => !prev)}
       />
       <label htmlFor={key} className="modal cursor-pointer">
-        <label className="modal-box relative" htmlFor="">
+        <label className="modal-box relative">
           <h3 className="text-lg font-bold">Create new post</h3>
           <form
             className="form-control w-full"

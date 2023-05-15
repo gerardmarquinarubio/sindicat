@@ -25,7 +25,7 @@ export default function DefaultLayout({ children, locale }: IDefaultLayout) {
         }
       />
       {children}
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

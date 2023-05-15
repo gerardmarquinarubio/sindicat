@@ -1,4 +1,13 @@
-export default function Resources() {
+import BrowseButton from "~/components/BrowseButton";
+import { NextPageWithLayout } from "./_app";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { getDictionary } from "~/dictionaries";
+import DefaultLayout from "~/layouts/DefaultLayout";
+import LoginButton from "~/components/LoginButton";
+
+const Resources: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ locale }) => {
   return (
     <div>
       <div
@@ -10,13 +19,9 @@ export default function Resources() {
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
+            <h1 className="mb-5 text-5xl font-bold">{locale.res.title}</h1>
+            <p className="mb-5">{locale.res.subtitle}</p>
+            <BrowseButton locale={locale} />
           </div>
         </div>
       </div>
@@ -40,9 +45,10 @@ export default function Resources() {
                   fill="currentColor"
                 />
               </svg>
-              The worker who becomes a cog in the machine is robbed of his
-              humanity
-              <p className="text-xl text-right">- Mikhail Bakunin</p>
+              {locale.res.quotes[1].label}
+              <p className="text-xl text-right">
+                {locale.res.quotes[1].author}
+              </p>
             </blockquote>
             <a href="#slide2" className="btn btn-circle">
               ❯
@@ -68,9 +74,10 @@ export default function Resources() {
                   fill="currentColor"
                 />
               </svg>
-              The most powerful weapon in the hands of the oppressor is the mind
-              of the oppressed
-              <p className="text-xl text-right">- Steve Biko</p>
+              {locale.res.quotes[2].label}
+              <p className="text-xl text-right">
+                {locale.res.quotes[2].author}
+              </p>
             </blockquote>
             <a href="#slide3" className="btn btn-circle">
               ❯
@@ -96,9 +103,10 @@ export default function Resources() {
                   fill="currentColor"
                 />
               </svg>
-              We must carry the fire of the revolution in our hearts and
-              continue the struggle for a better world
-              <p className="text-xl text-right">- Emma Goldman</p>
+              {locale.res.quotes[3].label}
+              <p className="text-xl text-right">
+                {locale.res.quotes[3].author}
+              </p>
             </blockquote>
             <a href="#slide4" className="btn btn-circle">
               ❯
@@ -124,9 +132,10 @@ export default function Resources() {
                   fill="currentColor"
                 />
               </svg>
-              Solidarity is not a matter of sentiment but a fact, cold and
-              impassive as the granite foundations of a skyscraper
-              <p className="text-xl text-right">- Rosa Luxemburg</p>
+              {locale.res.quotes[4].label}
+              <p className="text-xl text-right">
+                {locale.res.quotes[4].author}
+              </p>
             </blockquote>
             <a href="#slide1" className="btn btn-circle">
               ❯
@@ -141,13 +150,9 @@ export default function Resources() {
             className="max-w-sm rounded-lg shadow-2xl"
           />
           <div>
-            <h1 className="text-5xl font-bold">Box Office News!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
+            <h1 className="text-5xl font-bold">{locale.res.hero1.title}</h1>
+            <p className="py-6">{locale.res.hero1.subtitle}</p>
+            <BrowseButton locale={locale} />
           </div>
         </div>
       </div>
@@ -158,16 +163,26 @@ export default function Resources() {
             className="max-w-sm rounded-lg shadow-2xl"
           />
           <div>
-            <h1 className="text-5xl font-bold">Box Office News!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
+            <h1 className="text-5xl font-bold">{locale.res.hero2.title}</h1>
+            <p className="py-6">{locale.res.hero2.subtitle}</p>
+            <LoginButton locale={locale} />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+Resources.getLayout = (page) => {
+  return <DefaultLayout locale={page.props.locale}>{page}</DefaultLayout>;
+};
+
+export default Resources;
+
+export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+  return {
+    props: {
+      locale: getDictionary(locale),
+    },
+  };
+};
