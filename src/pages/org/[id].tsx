@@ -79,7 +79,7 @@ export default function Org({
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-y-scroll p-4 my-2">
             {posts.map((p) => (
-              <Post key={p.id} {...p} />
+              <Post key={p.id} {...p} locale={locale} />
             ))}
           </div>
         </div>

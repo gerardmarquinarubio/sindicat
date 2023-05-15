@@ -16,7 +16,7 @@ interface IErrors {
 const PostPage: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ locale, post }) => {
-  return <Post {...post} full />;
+  return <Post {...post} full locale={locale} />;
 };
 
 PostPage.getLayout = (page) => {

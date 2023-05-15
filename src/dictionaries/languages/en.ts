@@ -66,6 +66,7 @@ const en: Schema = {
     post: {
       by: "by",
       comments: "comments",
+      comment: "Comment",
     },
     postModal: {
       openButtonDefault: "Create post",

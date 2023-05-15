@@ -16,7 +16,7 @@ export default function Comment({
           <img src={author.media ?? "/images/placeholder.png"} />
         </div>
       </div>
-      <div className="chat-header">
+      <div className="chat-header mb-2">
         {author.name}
         <time className="text-xs opacity-50 mx-1">
           {timeago.format(new Date(createdAt))}

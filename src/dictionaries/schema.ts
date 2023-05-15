@@ -289,6 +289,7 @@ export type Schema = {
     post: {
       by: string;
       comments: string;
+      comment: string;
     };
     postModal: {
       openButtonDefault: string;
