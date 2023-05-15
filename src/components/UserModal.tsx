@@ -3,11 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { Uploader } from "./Uploader";
 import { trpc } from "~/utils/trpc";
 import { useSession } from "next-auth/react";
+import { Schema } from "~/dictionaries/schema";
 
 interface UserModalProps {
   key?: string;
   openButtonText?: string;
   openButtonClassname?: string;
+  locale: Schema;
   onUser?: (user: User) => void;
 }
 

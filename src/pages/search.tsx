@@ -64,8 +64,10 @@ const Search: NextPageWithLayout<
           {orgs.length === 0 ? (
             <div className="flex flex-col items-center col-span-2">
               <div className="text-5xl">🙁</div>
-              <h3 className="text-xl font-medium">Nothing found</h3>
-              <p>The organization might be private or not exist yet</p>
+              <h3 className="text-xl font-medium">
+                {locale.search.lost.title}
+              </h3>
+              <p>{locale.search.lost.subtitle}</p>
             </div>
           ) : (
             orgs

@@ -122,13 +122,11 @@ const en: Schema = {
   access: {
     login: {
       title: "Sign in",
-      subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet nisi vel turpis rhoncus, sit amet dignissim neque scelerisque. Nam lobortis lobortis purus in blandit",
+      subtitle: "We see each other again, together we can change the world",
     },
     register: {
       title: "Sign up",
-      subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet nisi vel turpis rhoncus, sit amet dignissim neque scelerisque. Nam lobortis lobortis purus in blandit",
+      subtitle: "Choose wisely, Neo",
     },
     name: {
       label: "Name",

@@ -13,7 +13,7 @@ export default function LoginButton({ locale }: { locale: Schema }) {
         })
       }
     >
-      Register now
+      {locale.components.loginButton.label}
     </button>
   );
 }

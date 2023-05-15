@@ -3,10 +3,12 @@ import { useRef, useState } from "react";
 import { Uploader } from "./Uploader";
 import { trpc } from "~/utils/trpc";
 import { useSession } from "next-auth/react";
+import { Schema } from "~/dictionaries/schema";
 
 interface PostModalProps {
   org: number;
   key?: string;
+  locale: Schema;
   openButtonText?: string;
   openButtonClassname?: string;
   onPost?: (post: Post) => void;

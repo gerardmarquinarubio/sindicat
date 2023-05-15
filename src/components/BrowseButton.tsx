@@ -12,7 +12,7 @@ export default function BrowseButton({ locale }: { locale: Schema }) {
         })
       }
     >
-      Browse communities
+      {locale.components.browseButton.label}
     </button>
   );
 }
