@@ -5,6 +5,7 @@ import type { ReactElement, ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 import { Schema } from "~/dictionaries/schema";
+import "~/utils/timeago";
 
 import "~/styles/globals.css";
 

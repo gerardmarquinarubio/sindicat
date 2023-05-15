@@ -1,6 +1,8 @@
 import type { NextPageWithLayout } from "./_app";
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Image from "next/image";
+import BrowseButton from "~/components/BrowseButton";
+import LoginButton from "~/components/LoginButton";
 import { getDictionary } from "~/dictionaries";
 import DefaultLayout from "~/layouts/DefaultLayout";
 
@@ -20,9 +22,7 @@ const Home: NextPageWithLayout<
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold">{locale.index.greeting}</h1>
             <p className="mb-5">{locale.index.subtitle}</p>
-            <button className="btn btn-primary">
-              {locale.index.startButton}
-            </button>
+            <LoginButton locale={locale} />
           </div>
         </div>
       </div>
@@ -40,9 +40,7 @@ const Home: NextPageWithLayout<
               {locale.index.userCounterTitle}
             </h1>
             <p className="py-6">{locale.index.userCounteSubtitle}</p>
-            <button className="btn btn-primary">
-              {locale.index.startButton}
-            </button>
+            <BrowseButton locale={locale} />
           </div>
         </div>
       </div>

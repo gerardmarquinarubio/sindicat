@@ -4,6 +4,7 @@ import client from "~/prisma/client";
 import { isPasswordSecure, validateEmail } from "~/utils/secure";
 import { procedure, router } from "../trpc";
 import { PostType } from "@prisma/client";
+import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 const UnauthorizedError = new Error("Unauthorized");
 
@@ -13,18 +14,18 @@ export const appRouter = router({
       z.object({
         content: z.string(),
         post: z.number(),
+        type: z.string(),
       })
     )
     .query(async ({ input, ctx }) => {
       if (!ctx?.session?.user) {
         throw UnauthorizedError;
       }
-      console.log(input, ctx.session.user);
       return await client.interaction.create({
         data: {
-          type: "Comment",
+          type: input.type as "Comment" | "Reaction",
           content: input.content,
-          createdAt: Date.now(),
+          createdAt: new Date().toISOString(),
           post: {
             connect: {
               id: input.post,
@@ -56,7 +57,11 @@ export const appRouter = router({
         },
         include: {
           author: true,
-          interaction: true,
+          interaction: {
+            include: {
+              author: true,
+            },
+          },
         },
       });
     }),
@@ -86,7 +91,7 @@ export const appRouter = router({
           name: name,
           content: content,
           media: media,
-          createdAt: Date.now(),
+          createdAt: new Date().toISOString(),
           author: {
             connect: {
               id: +ctx.session.user.id,
@@ -188,7 +193,7 @@ export const appRouter = router({
           name: input.name,
           content: input.description,
           media: input.logo,
-          createdAt: Date.now(),
+          createdAt: new Date().toISOString(),
           users: {
             create: {
               role: "Admin",
@@ -242,7 +247,7 @@ export const appRouter = router({
           name,
           email,
           password,
-          createdAt: Date.now(),
+          createdAt: new Date().toISOString(),
         },
       });
     }),
@@ -250,3 +255,6 @@ export const appRouter = router({
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
+
+export type RouterInput = inferRouterInputs<AppRouter>;
+export type RouterOutput = inferRouterOutputs<AppRouter>;

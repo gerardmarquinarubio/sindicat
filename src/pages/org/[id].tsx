@@ -1,7 +1,5 @@
 import {
   GetStaticPaths,
-  GetStaticPathsContext,
-  GetStaticProps,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
@@ -10,11 +8,12 @@ import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import { getDictionary } from "~/dictionaries";
 import client from "~/prisma/client";
-import { type Post as IPost, PostType } from "@prisma/client";
+import { type Post as IPost, PostType, User } from "@prisma/client";
 import PostModal from "~/components/PostModal";
 import { trpc } from "~/utils/trpc";
 import { useEffect, useState } from "react";
 import Post from "~/components/Post";
+import { RouterOutput } from "~/server/routers/_app";
 
 type Filter = PostType | "all";
 
@@ -25,8 +24,7 @@ export default function Org({
   org,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { getPosts } = trpc.useContext();
-  type getPostsResult = Awaited<ReturnType<(typeof getPosts)["fetch"]>>;
-  const [posts, setPosts] = useState<getPostsResult>([]);
+  const [posts, setPosts] = useState<RouterOutput["getPosts"]>([]);
   const [filterPosts, setFilterPosts] = useState(DEFAULT_FILTER);
   function fetchPosts() {
     getPosts
@@ -79,7 +77,7 @@ export default function Org({
             </select>
             <PostModal org={org.id} onPost={fetchPosts} />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-scroll p-4 my-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-y-scroll p-4 my-2">
             {posts.map((p) => (
               <Post key={p.id} {...p} />
             ))}
