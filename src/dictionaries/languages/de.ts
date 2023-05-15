@@ -151,14 +151,14 @@ const de: Schema = {
   },
   create: {
     title: "Beginnen Sie jetzt mit der Organisation",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    subtitle: "Einz zwei polizei drai vier fund sext, what am I saying?",
     name: {
       label: "Name",
       placeholder: "Cool Corp",
     },
     description: {
       label: "Beschreibung",
-      placeholder: "Lorem ipsum dolor sit amet",
+      placeholder: "Iomportantz descriptzion",
     },
     visibility: {
       label: "Sichtweite",

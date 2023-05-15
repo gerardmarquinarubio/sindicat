@@ -54,6 +54,7 @@ export default function PostModal({
       })
       .then((uploaded) => {
         setModalOpen(false);
+        setImageUrl("");
         onPost(uploaded);
       })
       .catch(console.error);

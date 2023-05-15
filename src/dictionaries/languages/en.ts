@@ -151,15 +151,14 @@ const en: Schema = {
   },
   create: {
     title: "Start organizing now",
-    subtitle:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet nisi vel turpis rhoncus, sit amet dignissim neque scelerisque. Nam lobortis lobortis purus in blandit",
+    subtitle: "Lorem ipsum dolor sit ami reading this?",
     name: {
       label: "Name",
       placeholder: "Cool Corp",
     },
     description: {
       label: "Description",
-      placeholder: "Lorem ipsum dolor sit amet",
+      placeholder: "An important description",
     },
     visibility: {
       label: "Visibility",

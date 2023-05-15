@@ -126,7 +126,7 @@ const es: Schema = {
     },
     register: {
       title: "Registrarse",
-      subtitle: "Escoje sábiamente, Neo",
+      subtitle: "Pastilla azul o pastilla roja?, escoje sábiamente, Neo",
     },
     name: {
       label: "Nombre",
@@ -151,15 +151,14 @@ const es: Schema = {
   },
   create: {
     title: "Comienza a organizar ahora",
-    subtitle:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet nisi vel turpis rhoncus, sit amet dignissim neque scelerisque. Nam lobortis lobortis purus in blandit",
+    subtitle: "Lorem ipsum dolor sit amestas leyendo esto?",
     name: {
       label: "Nombre",
       placeholder: "Mi Empresa Genial",
     },
     description: {
       label: "Descripción",
-      placeholder: "Lorem ipsum dolor sit amet",
+      placeholder: "Mi descripción importante",
     },
     visibility: {
       label: "Visibilidad",

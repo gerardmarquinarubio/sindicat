@@ -62,7 +62,7 @@ export default Home;
 
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
   const max = await prisma.post.count();
-  const random = Math.max(Math.random() * max, 1);
+  const random = Math.abs(Math.max(Math.random() * max, 1));
   const randomPost = await prisma.post.findUnique({
     where: {
       id: random,

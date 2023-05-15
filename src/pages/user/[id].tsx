@@ -21,7 +21,7 @@ const User: NextPageWithLayout<
   return (
     <section className="relative w-full flex min-h-[50vh] justify-center items-center p-10">
       <article className="card w-1/2 bg-base-300">
-        {isLogged && <UserModal />}
+        {isLogged && <UserModal locale={locale} />}
         <div className="absolute rounded-badge w-32 h-32 right-0 top-0">
           <Image
             src={user.media ?? "/images/placeholder.png"}

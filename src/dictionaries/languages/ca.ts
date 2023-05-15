@@ -151,14 +151,14 @@ const ca: Schema = {
   },
   create: {
     title: "Comenceu a organitzar-vos ara",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    subtitle: "Un DJ dolent en la seva vida a trencat un plat",
     name: {
       label: "Nom",
       placeholder: "Cool Corp",
     },
     description: {
       label: "Descripció",
-      placeholder: "Lorem ipsum dolor sit amet",
+      placeholder: "Descripció interessant",
     },
     visibility: {
       label: "Visibilitat",
