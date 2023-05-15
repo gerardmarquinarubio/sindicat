@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  User
+  Admin
+}
+
+enum PostType {
+  Text
+  Link
+  Image
+}
+
+enum InteractionType {
+  Comment
+  Reaction
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt String
+
+  name     String // name of the user e.g "Foo"
+  content  String? // description of the user e.g "I'm a Star Wars fan!"
+  email    String   @unique
+  password String
+
+  role       Role       @default(User) // is he a super-admin?
+
+  orgs         UsersOnOrg[]
+  posts        Post[]
+  interactions Interaction[]
+
+  media String?
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt String
+
+  name       String // Title of the post
+  type       PostType
+  content    String
+
+  author      User          @relation(references: [id], fields: [authorId])
+  authorId    Int
+  org         Org           @relation(references: [id], fields: [orgId])
+  orgId       Int
+  interaction Interaction[]
+
+  media String?
+}
+
+model Interaction {
+  id        Int      @id @default(autoincrement())
+  createdAt String
+
+  type    InteractionType
+  content String
+
+  post     Post @relation(references: [id], fields: [postId])
+  postId   Int
+  author   User @relation(references: [id], fields: [authorId])
+  authorId Int
+}
+
+model Org {
+  id        Int      @id @default(autoincrement())
+  createdAt String
+
+  name         String
+  content      String // Description of the Org
+  verification Int        @default(0)
+
+  users UsersOnOrg[]
+  posts Post[]
+
+  media String?
+}
+
+model UsersOnOrg {
+  org    Org  @relation(fields: [orgId], references: [id])
+  orgId  Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  role   Role
+
+  @@id([orgId, userId])
+}
