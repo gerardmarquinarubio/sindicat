@@ -34,7 +34,6 @@ model User {
   name     String // name of the user e.g "Foo"
   content  String? // description of the user e.g "I'm a Star Wars fan!"
   email    String   @unique
-  socials  String[] // social links
   password String
 
   role       Role       @default(User) // is he a super-admin?

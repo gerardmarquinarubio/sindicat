@@ -1,4 +1,5 @@
 import { Org } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -25,6 +26,7 @@ export default function Organization({
   media,
   id,
 }: OrgProps) {
+  const session = useSession();
   const router = useRouter();
 
   const { deleteOrg } = trpc.useContext();
@@ -56,15 +58,18 @@ export default function Organization({
           >
             <AiFillEye />
           </button>
-          <button className="btn btn-sm btn-outline btn-circle btn-success">
-            <AiFillPlusCircle />
-          </button>
           <button
             className="btn btn-sm btn-outline btn-circle btn-error"
             onClick={(e) => {
               e.stopPropagation();
               handleDelete();
             }}
+            disabled={
+              !session.data?.user ||
+              !session.data?.user?.orgs.find(
+                (o) => o.role === "Admin" && o.orgId === id
+              )
+            }
           >
             <AiFillCloseCircle />
           </button>

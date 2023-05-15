@@ -5,6 +5,7 @@ import { isPasswordSecure, validateEmail } from "~/utils/secure";
 import { procedure, router } from "../trpc";
 import { PostType } from "@prisma/client";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+import prisma from "~/prisma/client";
 
 const UnauthorizedError = new Error("Unauthorized");
 
@@ -152,6 +153,13 @@ export const appRouter = router({
       if (!self) {
         throw UnauthorizedError;
       } else {
+        const deleteInteractionsInOrg = client.interaction.deleteMany({
+          where: {
+            post: {
+              orgId: id,
+            },
+          },
+        });
         const deleteUsersInOrg = client.usersOnOrg.deleteMany({
           where: {
             orgId: id,
@@ -168,6 +176,7 @@ export const appRouter = router({
           },
         });
         return await client.$transaction([
+          deleteInteractionsInOrg,
           deletePostsInOrg,
           deleteUsersInOrg,
           deleteOrg,
@@ -187,7 +196,6 @@ export const appRouter = router({
         throw UnauthorizedError;
       }
       const userId = +ctx.session.user.id;
-      const random = Math.random() * 999;
       return await client.org.create({
         data: {
           name: input.name,
@@ -200,6 +208,30 @@ export const appRouter = router({
               userId: userId,
             },
           },
+        },
+      });
+    }),
+  updateUser: procedure
+    .input(
+      z.object({
+        name: z.string(),
+        bio: z.string(),
+        media: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      if (!ctx.session?.user) {
+        throw UnauthorizedError;
+      }
+      const { name, bio, media } = input;
+      return await prisma.user.update({
+        where: {
+          id: +ctx.session.user.id,
+        },
+        data: {
+          content: bio,
+          media,
+          name,
         },
       });
     }),

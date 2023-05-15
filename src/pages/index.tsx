@@ -3,12 +3,14 @@ import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Image from "next/image";
 import BrowseButton from "~/components/BrowseButton";
 import LoginButton from "~/components/LoginButton";
+import Post from "~/components/Post";
 import { getDictionary } from "~/dictionaries";
 import DefaultLayout from "~/layouts/DefaultLayout";
+import prisma from "~/prisma/client";
 
 const Home: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
-> = ({ locale }) => {
+> = ({ locale, randomPost }) => {
   return (
     <>
       <div
@@ -28,13 +30,17 @@ const Home: NextPageWithLayout<
       </div>
       <div className="hero min-h-[75vh] bg-base-100">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <Image
-            width={400}
-            height={800}
-            src="/images/protest_2.jpg"
-            className="max-w-sm rounded-lg shadow-2xl"
-            alt="Side"
-          />
+          {randomPost ? (
+            <Post {...randomPost} locale={locale} />
+          ) : (
+            <Image
+              width={800}
+              height={1200}
+              src="/images/protest_2.jpg"
+              className="max-w-md lg:max-w-xl rounded-lg shadow-2xl"
+              alt="Side"
+            />
+          )}
           <div>
             <h1 className="text-5xl font-bold">
               {locale.index.userCounterTitle}
@@ -55,9 +61,26 @@ Home.getLayout = (page) => {
 export default Home;
 
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
+  const max = await prisma.post.count();
+  const random = Math.max(Math.random() * max, 1);
+  const randomPost = await prisma.post.findUnique({
+    where: {
+      id: random,
+    },
+    include: {
+      author: true,
+      interaction: {
+        include: {
+          author: true,
+        },
+      },
+    },
+  });
   return {
     props: {
       locale: getDictionary(locale),
+      randomPost,
     },
+    revalidate: 60,
   };
 };

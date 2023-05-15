@@ -58,9 +58,6 @@ export default function Navbar({
                     <Link href={`/org/create`}>{locale.createOrg}</Link>
                   </li>
                 )}
-                <li>
-                  <Link href={`/user/settings`}>{locale.settingsButton}</Link>
-                </li>
                 <li onClick={handleLogout}>
                   <a>{locale.logoutButton}</a>
                 </li>

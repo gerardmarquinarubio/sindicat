@@ -23,8 +23,9 @@ const en: Schema = {
     users: "users",
   },
   res: {
-    title: "Title",
-    subtitle: "Lorem ipsum dolor sit amet",
+    title: "The time is nigh",
+    subtitle:
+      "Imagine a world where the collective voice of workers is heard, where fairness and justice prevail, and where every individual has the power to shape their own destiny...",
     quotes: {
       "1": {
         label:
@@ -48,12 +49,14 @@ const en: Schema = {
       },
     },
     hero1: {
-      title: "Title!",
-      subtitle: "Lorem ipsum",
+      title: "Did you know?",
+      subtitle:
+        "Workers unions played a pivotal role in ending widespread child labor that persisted until the last century. They fought for labor reforms, minimum age limits, and improved working conditions for children. Thanks to their efforts, child labor has significantly decreased, emphasizing the power of collective action. Workers unions continue to advocate for the rights and well-being of all children.",
     },
     hero2: {
-      title: "Title!",
-      subtitle: "Lorem ipsum",
+      title: "Did you know?",
+      subtitle:
+        "Women's rights have been championed by workers unions, leading to significant progress in the last century. Unions fought for equal pay, maternity leave, and protection against workplace discrimination. Thanks to their efforts, women have gained greater access to opportunities and achieved significant advancements in the workforce. Workers unions continue to strive for gender equality and the empowerment of women in all spheres of life.",
     },
   },
   components: {

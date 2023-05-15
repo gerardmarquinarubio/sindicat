@@ -1,49 +1,60 @@
-import { User } from "@prisma/client";
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
 import Image from "next/image";
-import Footer from "~/components/Footer";
-import Navbar from "~/components/Navbar";
 import { getDictionary } from "~/dictionaries";
 import client from "~/prisma/client";
+import { NextPageWithLayout } from "../_app";
+import DefaultLayout from "~/layouts/DefaultLayout";
+import { useSession } from "next-auth/react";
+import Org from "~/components/Org";
+import Post from "~/components/Post";
+import UserModal from "~/components/UserModal";
 
-export default function Me({
-  locale,
-  user,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+const User: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ locale, user }) => {
+  const session = useSession();
+  const isLogged = +(session.data?.user?.id ?? "-1") === user.id;
   return (
-    <main>
-      <Navbar locale={locale.navbar} />
-      <section className="w-full flex min-h-[50vh] justify-center items-center p-10">
-        <article className="card w-1/2 bg-base-300">
-          <figure>
-            <div className="rounded-full">
-              <Image
-                width={800}
-                height={400}
-                src="https://picsum.photos/800/400"
-                alt="User"
-              />
-            </div>
-          </figure>
+    <section className="relative w-full flex min-h-[50vh] justify-center items-center p-10">
+      <article className="card w-1/2 bg-base-300">
+        {isLogged && <UserModal />}
+        <div className="absolute rounded-badge w-32 h-32 right-0 top-0">
           <Image
-            className="absolute rounded-badge w-32 h-32 right-0 -translate-x-4 translate-y-4"
-            src="/images/face.jpg"
+            src={user.media ?? "/images/placeholder.png"}
             width={400}
             height={400}
             alt="profile picture"
           />
-          <div className="card-body">
-            <h2 className="card-title">{user.name}</h2>
-            <p>{user.content}</p>
+        </div>
+        <div className="card-body">
+          <h2 className="card-title text-accent">{user.name}</h2>
+          <p>{user.content ?? "Here goes your bio"}</p>
+          <div className="mt-14 z-10">
+            <p className="text-lg font-medium mb-1">Your communities</p>
+            {user.orgs.map((o) => (
+              <Org key={o.orgId} {...o.org} minified />
+            ))}
           </div>
-        </article>
-      </section>
-      <Footer locale={locale} />
-    </main>
+          <div>
+            <p className="text-lg font-medium mb-1">Latest posts</p>
+            {user.posts.slice(0, 3).map((post) => (
+              <Post key={post.id} {...post} locale={locale} />
+            ))}
+          </div>
+        </div>
+      </article>
+    </section>
   );
-}
+};
 
-export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+export const getStaticProps = async ({
+  locale,
+  params,
+}: GetStaticPropsContext) => {
   if (params === undefined) {
     throw new Error("Unparsed parameters");
   }
@@ -53,30 +64,34 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   }
 
   const id = parseInt(params.id);
-  let user: User;
 
-  if (id === 123) {
-    user = {
-      id: 123,
-      content: "Hola este es un usuario de prueba!",
-      createdAt: "2023/02/11",
-      updatedAt: "2023/03/14",
-      email: "gerardmarquina@gmail.com",
-      name: "Gerard Marquina Rubio",
-      role: "Admin",
-      socials: ["https://github.com/gerardmarquinarubio"],
-      visibility: "Public",
-    } as unknown as User;
-  } else {
-    user = await client.user.findUniqueOrThrow({
-      where: { id },
-    });
-  }
+  let user = await client.user.findUniqueOrThrow({
+    where: {
+      id,
+    },
+    include: {
+      posts: {
+        include: {
+          author: true,
+          interaction: {
+            include: {
+              author: true,
+            },
+          },
+        },
+      },
+      orgs: {
+        include: {
+          org: true,
+        },
+      },
+    },
+  });
 
   return {
     props: {
       locale: getDictionary(locale),
-      user: user as User,
+      user,
     },
     revalidate: 5,
   };
@@ -84,7 +99,13 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   return {
-    paths: ["/user/123"],
+    paths: [],
     fallback: "blocking",
   };
 };
+
+User.getLayout = (page) => {
+  return <DefaultLayout locale={page.props.locale}>{page}</DefaultLayout>;
+};
+
+export default User;

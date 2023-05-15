@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Schema } from "~/dictionaries/schema";
 
@@ -6,22 +7,106 @@ export default function Footer({ locale }: { locale: Schema }) {
   return (
     <footer className="footer p-10 text-base-content bg-gradient-to-l from-slate-900 to-slate-800">
       <div>
-        <span className="footer-title">{locale.footer.legal.label}</span>
-        <a className="link link-hover">{locale.footer.legal.tos}</a>
-        <a className="link link-hover">{locale.footer.legal.privacy}</a>
-        <a className="link link-hover">{locale.footer.legal.licenses}</a>
+        <Link
+          href={{
+            pathname: "/legal",
+          }}
+          className="footer-title"
+        >
+          {locale.footer.legal.label}
+        </Link>
+        <Link
+          href={{
+            pathname: "/legal",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.legal.tos}
+        </Link>
+        <Link
+          href={{
+            pathname: "/legal",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.legal.privacy}
+        </Link>
+        <Link
+          href={{
+            pathname: "/legal",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.legal.licenses}
+        </Link>
       </div>
       <div>
-        <span className="footer-title">{locale.footer.faq.label}</span>
-        <a className="link link-hover">{locale.footer.faq.who}</a>
-        <a className="link link-hover">{locale.footer.faq.data}</a>
-        <a className="link link-hover">{locale.footer.faq.how}</a>
-        <a className="link link-hover">{locale.footer.faq.res}</a>
+        <Link
+          href={{
+            pathname: "/faq",
+          }}
+          className="footer-title"
+        >
+          {locale.footer.faq.label}
+        </Link>
+        <Link
+          href={{
+            pathname: "/faq",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.faq.who}
+        </Link>
+        <Link
+          href={{
+            pathname: "/faq",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.faq.data}
+        </Link>
+        <Link
+          href={{
+            pathname: "/faq",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.faq.how}
+        </Link>
+        <Link
+          href={{
+            pathname: "/faq",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.faq.res}
+        </Link>
       </div>
       <div>
-        <span className="footer-title">{locale.footer.res.label}</span>
-        <a className="link link-hover">{locale.footer.res.rights}</a>
-        <a className="link link-hover">{locale.footer.res.quotes}</a>
+        <Link
+          href={{
+            pathname: "/resources",
+          }}
+          className="footer-title"
+        >
+          {locale.footer.res.label}
+        </Link>
+        <Link
+          href={{
+            pathname: "/resources",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.res.rights}
+        </Link>
+        <Link
+          href={{
+            pathname: "/resources",
+          }}
+          className="link link-hover"
+        >
+          {locale.footer.res.quotes}
+        </Link>
       </div>
       <div>
         <select

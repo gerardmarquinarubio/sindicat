@@ -9,6 +9,7 @@ const Legal: NextPageWithLayout<
   return (
     <div className="flex flex-col gap-1 p-2">
       <div
+        id="0"
         tabIndex={0}
         className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
       >
@@ -81,6 +82,7 @@ const Legal: NextPageWithLayout<
         </div>
       </div>
       <div
+        id="1"
         tabIndex={1}
         className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
       >
@@ -125,6 +127,7 @@ const Legal: NextPageWithLayout<
         </div>
       </div>
       <div
+        id="2"
         tabIndex={2}
         className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
       >

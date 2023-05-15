@@ -25,7 +25,20 @@ const Resources: NextPageWithLayout<
           </div>
         </div>
       </div>
-      <div className="carousel w-full">
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content flex-col lg:flex-row">
+          <img
+            src="/images/children.jpeg"
+            className="max-w-md lg:max-w-xl rounded-lg shadow-2xl"
+            alt="child labor"
+          />
+          <div>
+            <h1 className="text-5xl font-bold">{locale.res.hero1.title}</h1>
+            <p className="py-6">{locale.res.hero1.subtitle}</p>
+          </div>
+        </div>
+      </div>
+      <div className="carousel w-full" id="0">
         <div id="slide1" className="carousel-item relative w-full">
           <img src="/images/bakunin.jpeg" className="w-full" />
           <div className="absolute flex justify-between items-center transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -143,24 +156,13 @@ const Resources: NextPageWithLayout<
           </div>
         </div>
       </div>
-      <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row">
-          <img
-            src="/images/protest_5.jpg"
-            className="max-w-sm rounded-lg shadow-2xl"
-          />
-          <div>
-            <h1 className="text-5xl font-bold">{locale.res.hero1.title}</h1>
-            <p className="py-6">{locale.res.hero1.subtitle}</p>
-            <BrowseButton locale={locale} />
-          </div>
-        </div>
-      </div>
+
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img
-            src="/images/protest_6.jpg"
-            className="max-w-sm rounded-lg shadow-2xl"
+            src="/images/women.jpeg"
+            className="max-w-md lg:max-w-xl rounded-lg shadow-2xl"
+            alt="women suffrage"
           />
           <div>
             <h1 className="text-5xl font-bold">{locale.res.hero2.title}</h1>

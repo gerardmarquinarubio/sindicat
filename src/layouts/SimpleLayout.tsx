@@ -12,7 +12,7 @@ export default function SimpleLayout({ children, locale }: IDefaultLayout) {
       <div className="flex items-center justify-center p-6 w-full">
         <div className="w-2/3">{children}</div>
       </div>
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

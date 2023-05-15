@@ -2,6 +2,7 @@ import { type Post, PostType } from "@prisma/client";
 import { useRef, useState } from "react";
 import { Uploader } from "./Uploader";
 import { trpc } from "~/utils/trpc";
+import { useSession } from "next-auth/react";
 
 interface PostModalProps {
   org: number;
@@ -26,6 +27,7 @@ export default function PostModal({
   openButtonText = "Create post",
   onPost = () => {},
 }: PostModalProps) {
+  const session = useSession();
   const { createPost } = trpc.useContext();
   const [postType, setPostType] = useState(DEFAULT_POST_TYPE);
   const [imageUrl, setImageUrl] = useState("");
@@ -59,7 +61,12 @@ export default function PostModal({
   return (
     <>
       {/* The button to open modal */}
-      <label htmlFor={key} className={openButtonClassname}>
+      <label
+        htmlFor={key}
+        className={
+          openButtonClassname + (session.data?.user ? "" : " btn-disabled")
+        }
+      >
         {openButtonText}
       </label>
       {/* Put this part before </body> tag */}
@@ -68,7 +75,8 @@ export default function PostModal({
         id={key}
         className="modal-toggle"
         checked={modalOpen}
-        onChange={(e) => setModalOpen((prev) => !prev)}
+        onChange={() => setModalOpen((prev) => !prev)}
+        disabled={!session.data?.user}
       />
       <label htmlFor={key} className="modal cursor-pointer">
         <label className="modal-box relative">

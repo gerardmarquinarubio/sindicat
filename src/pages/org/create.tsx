@@ -43,10 +43,10 @@ export default function Access({
   }
   return (
     <div>
-      <div className="relative hero min-h-screen bg-slate-900 lg:bg-transparent lg:bg-gradient-to-l from-slate-900 to-transparent">
+      <div className="relative hero min-h-screen bg-gradient-to-l from-slate-900/90 to-slate-900/50">
         <Image
           alt="access background picture"
-          src="https://picsum.photos/2000/1000"
+          src="/images/protest_7.jpg"
           className="-z-10"
           fill
         />
