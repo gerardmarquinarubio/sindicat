@@ -68,7 +68,7 @@ export default function Org({
                 setFilterPosts(e.currentTarget.value as PostType)
               }
             >
-              <option value="all">Show all post types</option>
+              <option value="all">{locale.org.filter.all}</option>
               {Object.keys(PostType).map((t) => (
                 <option key={t} value={t}>
                   {t}

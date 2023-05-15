@@ -9,7 +9,6 @@ interface PostModalProps {
   org: number;
   key?: string;
   locale: Schema;
-  openButtonText?: string;
   openButtonClassname?: string;
   onPost?: (post: Post) => void;
 }
@@ -24,9 +23,9 @@ interface IErrors {
 
 export default function PostModal({
   org,
+  locale,
   key = "post-modal",
   openButtonClassname = "btn btn-sm btn-primary",
-  openButtonText = "Create post",
   onPost = () => {},
 }: PostModalProps) {
   const session = useSession();
@@ -69,7 +68,7 @@ export default function PostModal({
           openButtonClassname + (session.data?.user ? "" : " btn-disabled")
         }
       >
-        {openButtonText}
+        {locale.components.postModal.openButtonDefault}
       </label>
       {/* Put this part before </body> tag */}
       <input
@@ -105,7 +104,9 @@ export default function PostModal({
           >
             <div>
               <label className="label">
-                <span className="label-text">Post type</span>
+                <span className="label-text">
+                  {locale.components.postModal.postType}
+                </span>
               </label>
               <select
                 className="select select-bordered w-full max-w-xs"
@@ -122,12 +123,14 @@ export default function PostModal({
             <div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Title</span>
+                  <span className="label-text">
+                    {locale.components.postModal.title.label}
+                  </span>
                 </label>
                 <input
                   name="name"
                   type="text"
-                  placeholder="A cool title"
+                  placeholder={locale.components.postModal.title.placeholder}
                   className="input input-bordered w-full max-w-xs"
                 />
               </div>
@@ -136,38 +139,45 @@ export default function PostModal({
               <div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Your text</span>
+                    <span className="label-text">
+                      {locale.components.postModal.text.label}
+                    </span>
                   </label>
                   <textarea
                     name="text"
                     className="textarea textarea-bordered h-24"
-                    placeholder="Bio"
+                    placeholder={locale.components.postModal.text.placeholder}
                   ></textarea>
                 </div>
               </div>
             )}
             {postType === "Image" && (
               <div>
-                <Uploader label="Image" onUpload={setImageUrl} />
+                <Uploader
+                  label={locale.components.postModal.image.label}
+                  onUpload={setImageUrl}
+                />
               </div>
             )}
             {postType === "Link" && (
               <div>
                 <div className="form-control w-full max-w-xs">
                   <label className="label">
-                    <span className="label-text">Link</span>
+                    <span className="label-text">
+                      {locale.components.postModal.link.label}
+                    </span>
                   </label>
                   <input
                     name="link"
                     type="url"
-                    placeholder="https://coolink.com/"
+                    placeholder={locale.components.postModal.link.placeholder}
                     className="input input-bordered w-full max-w-xs"
                   />
                 </div>
               </div>
             )}
             <button type="submit" className="btn btn-primary mt-6">
-              Submit
+              {locale.components.postModal.submit.label}
             </button>
           </form>
         </label>

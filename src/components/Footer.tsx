@@ -121,6 +121,7 @@ export default function Footer({ locale }: { locale: Schema }) {
           <option value={"en"}>English</option>
           <option value={"es"}>Español</option>
           <option value={"ca"}>Català</option>
+          <option value={"de"}>Deutsch</option>
         </select>
       </div>
     </footer>
